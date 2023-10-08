@@ -18,6 +18,22 @@ const Button = (props) => {
   )
 }
 
+const Statistics = (props) => {
+  const positives = () => props.good/props.total + " %"
+  const average = () => props.points/props.total
+  return (
+    <div>
+      <Display text={<h1>statistics</h1>}/>
+      <Display text={props.good} name="good "/>
+      <Display text={props.neutral} name="neutral "/>
+      <Display text={props.bad} name="bad "/>
+      <Display text={props.total} name="all "/>
+      <Display text={average()} name="average "/>
+      <Display text={positives()} name="positive "/>
+    </div>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -25,8 +41,6 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const [total, setTotal] = useState(0)
   const [points, setPoints] = useState(0)
-  
-  const positives = () => good/total + " %"
 
   return (
     <div>
@@ -58,13 +72,13 @@ const App = () => {
       }
         text='bad'
       />
-      <Display text={<h1>statistics</h1>}/>
-      <Display text={good} name="good "/>
-      <Display text={neutral} name="neutral "/>
-      <Display text={bad} name="bad "/>
-      <Display text={total} name="all "/>
-      <Display text={points/total} name="average "/>
-      <Display text={positives()} name="positive "/>
+      <Statistics
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      total={total}
+      points={points}
+      />
     </div>
   )
 }
