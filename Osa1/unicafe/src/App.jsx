@@ -4,7 +4,6 @@ import { useState } from 'react'
 const Display = (props) => {
   return (
     <div>
-      {props.name}
       {props.text}
     </div>
   )
@@ -18,8 +17,17 @@ const Button = (props) => {
   )
 }
 
+const StatisticLine = (props) => {
+  return (
+    <div>
+      {props.name}
+      {props.value}
+    </div>
+  )
+}
+
 const Statistics = (props) => {
-  const positives = () => props.good/props.total + " %"
+  const positives = () => props.good/props.total*100 + " %"
   const average = () => props.points/props.total
 
   if (props.total === 0) {
@@ -33,12 +41,12 @@ const Statistics = (props) => {
   return (
     <div>
       <Display text={<h1>statistics</h1>}/>
-      <Display text={props.good} name="good "/>
-      <Display text={props.neutral} name="neutral "/>
-      <Display text={props.bad} name="bad "/>
-      <Display text={props.total} name="all "/>
-      <Display text={average()} name="average "/>
-      <Display text={positives()} name="positive "/>
+      <StatisticLine value={props.good} name="good "/>
+      <StatisticLine value={props.neutral} name="neutral "/>
+      <StatisticLine value={props.bad} name="bad "/>
+      <StatisticLine value={props.total} name="all "/>
+      <StatisticLine value={average()} name="average "/>
+      <StatisticLine value={positives()} name="positive "/>
     </div>
   )
 }
