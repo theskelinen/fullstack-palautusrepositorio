@@ -21,6 +21,15 @@ const Button = (props) => {
 const Statistics = (props) => {
   const positives = () => props.good/props.total + " %"
   const average = () => props.points/props.total
+
+  if (props.total === 0) {
+    return (
+      <div>
+        <Display text={<h1>statistics</h1>}/>
+        <Display text={"No feedback given"}/>
+      </div>
+    )
+  }
   return (
     <div>
       <Display text={<h1>statistics</h1>}/>
@@ -33,6 +42,7 @@ const Statistics = (props) => {
     </div>
   )
 }
+
 
 const App = () => {
   // tallenna napit omaan tilaansa
