@@ -44,7 +44,11 @@ const Statistics = (props) => {
   }
   return (
     <table>
-      <Display text={<h1>statistics</h1>}/>
+      <tbody>
+        <tr>
+        <td><Display text={<h1>statistics</h1>}/></td>
+        </tr>
+      </tbody>
       <tbody>
         <StatisticLine value={props.good} name="good "/>
         <StatisticLine value={props.neutral} name="neutral "/>
