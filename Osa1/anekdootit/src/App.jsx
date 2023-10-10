@@ -16,6 +16,7 @@ const Button = (props) => {
   )
 }
 
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -32,6 +33,12 @@ const App = () => {
 
   const [votes, setVotes] = useState(new Uint8Array(8))
 
+  const maxVotes = () => Math.max(...votes)
+
+  const indexMax = () =>{
+    const max = maxVotes()
+    return votes.indexOf(max)
+  } 
 
   const getRandomInt = (min, max) => {
     min = Math.ceil(min)
@@ -41,13 +48,13 @@ const App = () => {
 
   return (
     <div>
+      <Display text={<h1>Anecdote of the day</h1>}/>
       <Display text={anecdotes[selected]}/>
       <Display text={"has "+votes[selected]+" votes"}/>
       <Button
         handleClick={() => {
           const copy = [...votes]
           copy[selected] += 1
-          console.log(copy)
           setVotes(copy)
 
         }
@@ -61,6 +68,9 @@ const App = () => {
       }
         text="next anecdote"
       />
+    <Display text={<h1>Anecdote with most votes</h1>}/>
+    <Display text={anecdotes[indexMax()]}/>
+    <Display text={"has "+maxVotes()+" votes"}/>
     </div>
   )
 }
