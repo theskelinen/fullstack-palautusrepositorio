@@ -30,22 +30,36 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
 
+  const [votes, setVotes] = useState(new Uint8Array(8))
+
+
   const getRandomInt = (min, max) => {
     min = Math.ceil(min)
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min) + min)
   }
 
-
   return (
     <div>
       <Display text={anecdotes[selected]}/>
+      <Display text={"has "+votes[selected]+" votes"}/>
+      <Button
+        handleClick={() => {
+          const copy = [...votes]
+          copy[selected] += 1
+          console.log(copy)
+          setVotes(copy)
+
+        }
+      }
+        text='vote'
+      />
       <Button
         handleClick={() => {
           setSelected(getRandomInt(0, anecdotes.length))
         }
       }
-        text='next anecdote'
+        text="next anecdote"
       />
     </div>
   )
