@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from "./services/persons"
+
 
 const Person = ({ person }) => 
   <p>
@@ -62,10 +63,10 @@ const App = () => {
       window.alert(`${personObject.name} is already added to phonebook`)
     }
     else {
-      axios
-      .post("http://localhost:3001/persons", personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
+      personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
       })
     }
     setNewName("")
@@ -89,16 +90,14 @@ const App = () => {
   const personsToShow = newFilter === ""
     ? persons
     : persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
-
-  const hook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
-  }
   
-  useEffect(hook, [])
+  useEffect(() => {
+    personService
+      .getAll()
+        .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+  }, [])
 
   return (
     <div>
